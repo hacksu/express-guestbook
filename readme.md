@@ -52,4 +52,21 @@ This will be an introduction to three things, Node.js (a tool to run JavaScript 
 
 ### Build
 
-* 
+* Run `npm init` this tells NPM that you have a project
+    * The defaults should be fine for us
+    * Note it requires a license to be specified. ISC is fine, but it does me that someone could 'gasp' legally use the code you write in this project as long as they credit you 
+* Run `npm install -s express` this will install the express library and remember it so anyone else using the project can install it too
+* Create a new file named something like `app.js`
+    * We'll make our server here
+* Open the file and add `var express = require('express');` as the first line
+    * This tells node to load JavaScript from another file and set a variable equal to whatever it exported.
+* Under that say `var app = express()` 
+    * This sets up the server part
+* Type 
+      app.get('/', function (req, res) {
+          res.send(new Date())
+      })
+
+    * This sets up a function to handle requests to a url
+
+* Finally `app.listen(3000)` tells the server to listen on port 3000
