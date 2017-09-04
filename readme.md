@@ -17,7 +17,7 @@ This will be an introduction to three things, Node.js (a tool to run JavaScript 
 
 * A computer
     * Some kind of text editor installed
-        * https://code.visualstudio.com/
+        * https://code.visualstudio.com/ (I use this one)
         * https://atom.io/
         * https://www.sublimetext.com/
         * Any of these work, or if you have one that seems similar it will probably too
