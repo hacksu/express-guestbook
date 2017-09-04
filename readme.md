@@ -11,6 +11,7 @@ This will be an introduction to three things, Node.js (a tool to run JavaScript 
 * A bit of knowledge about HTML 
 * A basic understanding of JavaScript
     * http://www.htmldog.com/guides/javascript/ or similar should teach you everything you need
+* A very basic understanding of the command line will also help
 
 ### What to bring
 
@@ -39,3 +40,16 @@ This will be an introduction to three things, Node.js (a tool to run JavaScript 
 * Check it's version with
     * `git --version`
 
+### Download
+
+* Start by going to https://github.com/hacksu/express-tutorial
+* In the upper left hand corner click the fork button
+* When it asks for a password click "Create an account." if you don't already have one
+* When it finishes forking you will have your on copy of the starting project.
+* Click the green clone or download and copy the url
+* From your documents or a similar location run `git clone ` and whatever url you copied
+* CD into `express-tutorial` and open your text editor in that folder
+
+### Build
+
+* 
