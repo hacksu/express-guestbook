@@ -70,6 +70,7 @@ This will be an introduction to three things, Node.js (a tool to run JavaScript 
     * This sets up a function to handle requests to a url
 
 * Finally `app.listen(3000)` tells the server to listen on port 3000
+* We run it by just running `node app.js`, then we go to http://localhost:3000/ in the browser
 
 ### Publish it
 
@@ -115,3 +116,57 @@ This will be an introduction to three things, Node.js (a tool to run JavaScript 
 * Add all the files with `git add .`
 * Commit the files with `git commit -m 'Made a thing'`
 * Push them to your branch on git with `git push`
+
+### A more complicated app
+
+* I'm going to make you do your own thing here in a second, but first lets make a more complicated app
+* Our app is going to do just two things
+    * On it's home page it will display a link
+    * Then `/update.html` will be a form to update the link
+* Lets make the page to display the link first.
+* Open up `app.js` again
+* We need to set two variables as local variables in Express, we could just make them global, but storing them in
+`app.locals` means that we make our code a bit more reusable
+
+       app.locals.name = 'Hi All';
+       app.locals.link = 'https://www.google.com/';
+
+* Then we need to make the output determined by those variables. We can output any string so just
+
+        res.send('<a href="'+app.locals.link+'">'+app.locals.name+'</a>');
+
+* Run the website again to check
+* Now lets add the form. 
+* The easiest way is just to tell express to host some files 
+* `app.use(express.static('static'));` tells Express to host all the files in the static folder on the website
+* Make a `static` folder and add `update.html` to it
+* Make a very simple website with a form and 3 inputs
+
+        <html>
+
+        <body>
+            <form>
+                <input type='text' name='name'/>
+                <input type="text" name="link"/>
+                <input type="submit" value="submit"/>
+            </form>
+        </body>
+
+
+        </html>
+* Now start the server and notice when you visit `http://localhost:3000/update.html` you see the form
+* Click submit and you get something like http://localhost:3000/update.html?name=hi&link=https%3A%2F%2Fwww.google.com%2F
+* This is a forms default behavior, it's sending all the information back in the get request.
+* We can get it on the server by adding a get handler in our code for `update.html`
+* We need to make sure it's before `app.use(express.static('static'));`
+
+        app.get('/update.html', function (req, res, next) {
+            console.log(req.query);
+            if (req.query.name != undefined) {
+                app.locals.name = req.query.name;
+                app.locals.link = req.query.link;
+                res.send('<a href="/">Successfully added, go back to home</a>');
+            } else {
+                next();
+            }
+        });
