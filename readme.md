@@ -70,3 +70,48 @@ This will be an introduction to three things, Node.js (a tool to run JavaScript 
     * This sets up a function to handle requests to a url
 
 * Finally `app.listen(3000)` tells the server to listen on port 3000
+
+### Publish it
+
+* We've got a working project or hopefully we do, lets publish it so you can share and keep track of your work
+
+> #### A brief intro to Git
+> * Git is a version control system
+>    * A big long phrase that basically just means it keeps track of the changes made to a piece of software
+>    * It's the same sort of thing as SVN which you'll need to use for class
+>    * It's distributed though meaning you keep the entire history on your computer and only update it when you need
+> * There are a couple of main commands you'll need to know right now
+>   * `git clone ....`
+>       * Copies a remote repository to your local computer
+>   * `git status`
+>       * Lists information about the status of git for the current directory
+>   * `git add ...`
+>       * Prepare files that should be saved as changed
+>       * To add all files in a directory `git add .`
+>       * We call this staging a file
+>   * `git commit`
+>       * Saves the current state of all the staged (added files) files
+>       * By default opens a text editor to specify a message
+>       * Use `git commit -m 'The message'` to specify it all at once
+>   * `git push`
+>       * Updates the remote you cloned from (or a different one you can specify)
+
+* Lets look at the status of the changed files
+* You should see it listing app.js as untracked, but also some other weird files and folders you didn't create
+    * `package.json` Should be tracked by version control
+        * The file `npm init` created to save the history of your file 
+    * `package-lock.json` Should be tracked by version control
+        * This stores exactly which libraries were installed with version history, with this file 
+        npm will always install the exact same version
+    * `node_modules/` Should **not** be tracked by version control
+        * Stores all the libraries so your program can use it
+* We need to tell git then that some files/folders should not be tracked
+    * We do this with a `.gitignore` file
+    * create it and add a line like `node_modules`
+        * Every line specifies a rule to ignore
+        * this is the simplest but we could do `*.js`
+            * this would tell git to ignore all js files
+* Now when we do `git status` we don't see the weird node_modules folder
+* Add all the files with `git add .`
+* Commit the files with `git commit -m 'Made a thing'`
+* Push them to your branch on git with `git push`
