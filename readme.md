@@ -1,8 +1,16 @@
-# Express
+# ExpressJS 🚂
 
-## Intro
+## ⚠️ Requirements ⚠️
 
-This will be an introduction to three things, Node.js (a tool to run JavaScript on a server), GitHub/Git (a tool to save, manage, and show off your source code), and Express (a JavaScript library for writing a web server).
+For this tutorial, you'll need a basic understanding of Javascript and how to navigate the command line.
+
+You'll also need to install (NodeJS)[https://nodejs.org/en/download/].
+
+## 🤔 Intro - What are we making? 🤔
+
+ExpressJS is a Javascript framework to make an API! 
+
+Api stands for **A**pplication **P**rogramming **I**nterface. APIs let us set up 'endpoints' for different programs to talk to eachother. APIs are used to connect programs to databases, recieve data from users securely, and give users data they request securely. 
 
 ## Instructions 
 
