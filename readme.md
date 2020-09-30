@@ -52,3 +52,91 @@ echo > index.js
 # Max & Linux:
 touch index.js
 ```
+
+Now, lets open up index.js in any editor you want! I prefer to use [Atom](https://atom.io/), but you can use whatever you want!
+
+To start, we need to be able to reference this module. NodeJS does this via `require(modulename)`. Also, based on Express's [documentation](https://expressjs.com/en/starter/hello-world.html) tells us that we can create an 'Application' by running the module as a function!
+```js
+const express = require('express');
+const app = express();
+```
+
+### Setting up some Routes
+
+Now that we've got our app, we need to give it some routes to respond on.
+
+```js
+// root of our app, respond with 'Hello there!' when visited with a GET request!
+app.get('/', function(req, res) {
+  res.send('Hello there!')
+})
+
+// at /time, respond with the current server time!
+app.get('/time', (req, res) => { // shorthand function declaration in JavaScript
+  res.send(new Date().toString())
+})
+```
+
+### Okay, but how do I visit my routes?
+
+Well, we need to have our app listen somewhere!
+
+We can do this by adding
+```js
+// listen on port 8080
+let port = 8080;
+app.listen(port, () => {
+  console.log('Listening on http://localhost:' + port)
+});
+```
+
+Now that we've added this; we can run our app!
+
+### Running our project
+
+Lets switch back to our terminal
+```
+node index.js
+# or node [whatever-you-named-your-file].js
+```
+
+If you see `Listening on http://localhost:8080` (or whatever port number you chose), then we're looking good!
+
+Head to your browser and try it out!
+
+http://localhost:8080
+- [Visit /](http://localhost:8080)
+- [Visit /time](http://localhost:8080/time)
+
+### Okay, lets dive a little deeper.
+
+We just made our app, but there is a lot more that we can do with express!
+
+Lets say we want to make an API for our app.
+```js
+
+// Allow cross-origin requests (dont worry about this for now. If you want to know more, google it or ask questions after the lesson)
+app.use((req, res, next) => {
+  res.header('Access-Control-Allow-Origin', '*')
+})
+
+// Get a new router for our API routes
+let api = new express.Router(); // basically a mini app that we'll hook to our main app.
+
+api.get('/', (req, res) => {
+  res.send('This is the root of our API!')
+})
+
+api.get('/welcome/:name', (req, res) => {
+  res.send('Welcome to my app, ' + req.params.name + '!') // /api/welcome/chris -> 'Welcome to my app, chris!'
+})
+
+app.use('/api', api); // Mount our API router to our app!
+
+```
+
+Alright, lets stop our app, save our changes to our index.js, and start it up again!
+
+Try visiting http://localhost:8080/api and http://localhost:8080/api/welcome/YOUR-NAME-GOES-HERE
+
+<img src='https://i.kym-cdn.com/entries/icons/mobile/000/033/069/jojo.jpg' style="border-radius: 25px;">
