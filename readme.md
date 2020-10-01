@@ -53,9 +53,9 @@ echo > index.js
 touch index.js
 ```
 
-Now, lets open up index.js in any editor you want! I prefer to use [Atom](https://atom.io/), but you can use whatever you want!
+Now, lets open up index.js and start coding. I prefer to use [Atom](https://atom.io/), but you can use whatever you want!
 
-To start, we need to be able to reference this module. NodeJS does this via `require(modulename)`. Also, based on Express's [documentation](https://expressjs.com/en/starter/hello-world.html) tells us that we can create an 'Application' by running the module as a function!
+To start, we need to be able to reference this module. NodeJS does this via `require(modulename)`. Also, Express's [documentation](https://expressjs.com/en/4x/api.html) tells us that we can create an 'Application' by running the module as a function!
 ```js
 const express = require('express');
 const app = express();
