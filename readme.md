@@ -147,4 +147,6 @@ Be sure to check out [ExpressJS.com](https://expressjs.com/) and their [Getting 
 
 If you are looking to have your friends be able to visit your website, take a look in to [DigitalOcean.com](https://www.digitalocean.com/) for their cheap and reliable servers! If you use [Github's Student Developer Pack](https://education.github.com/pack), you get a **$50** Digital Ocean credit that **literally can pay for a server for 10 months**.
 
+
+# My own website? Free servers?! Open Source??!!!
 <img src='https://i.kym-cdn.com/entries/icons/mobile/000/033/069/jojo.jpg'>
