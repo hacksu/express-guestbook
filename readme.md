@@ -120,6 +120,7 @@ Lets say we want to make an API for our app.
 // Allow cross-origin requests (dont worry about this for now. If you want to know more, google it or ask questions after the lesson)
 app.use((req, res, next) => {
   res.header('Access-Control-Allow-Origin', '*')
+  next()
 })
 
 // Get a new router for our API routes
