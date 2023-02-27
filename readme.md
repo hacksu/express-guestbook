@@ -4,19 +4,19 @@
 
 at some point, web pages were just simple text documents, but now they're basically mini-programs that get downloaded, installed, and run on your computer as soon as you visit them. however, unlike normal programs, they don't have a natural way to save data, since they're trapped inside your browser. sure, you could write code that asks the browser to store some data for you for next time, but a) the browser might not feel like it, especially if the user has privacy settings turned on and clears their history and stuff, and b) you, the creator of the website, never get to chance to see the data and analyze it and sell it to the north korean state. and c), the data won't be there if the user visits the website with a different browser, like the one on their phone. this is why the programs that create web pages kind of need to be split in two: we need to run half of the program in the user's browser, to respond to what they're doing, and half of it on some computer that stores data and lets you retrieve it from anywhere. that computer is called a web server.
 
-a more formal definition of a server is that it's a computer that provides resources to a network. every time you view any kind of website, a web server is sending you the html, javascript, images, and et cetera that constitute the page you're looking at. (what we are going to try to do today is extend and customize that functionality.) any network device can play the role of a server: a phone can, a desktop computer can, a raspberry pi can; you usually want a server to be a big powerful computer with a good internet connection sitting in a cool basement somewhere, but sometimes you don't have that, and so you're forced to jailbreak and reverse engineer your smart toaster.
+a more formal definition of a server is that it's a computer that provides resources to a network. every time you view any kind of website, a web server is sending you the html, javascript, images, and et cetera that constitute the page you're looking at, in addition to storing all the data that it has on you. any network device can play the role of a server: a phone can, a desktop computer can, a raspberry pi can; you usually want a server to be a big powerful computer with a good internet connection sitting in a cool basement somewhere, but sometimes you don't have that, and so you're forced to jailbreak and reverse engineer your smart toaster.
 
 disclaimer: the term "server" can refer to either a whole computer or a specific program that is fulfilling the role of providing resources on a network. so that may sometimes be confusing, sorry. but hopefully it will be possible to use context to figure out what kind of thing i'm talking about.
 
 and, by the way, there is no agreement on the best way to run a server. when you're creating the content that the users see, which is called frontend web development, there really aren't that many options: you have to produce html, css, and javascript, and the main ways to do that are to write programs with react, vue, or angular; frontend web designers do not use too many brain cells pinning down their basic tools. but if you're creating a server, which means you're doing what's called backend engineering, you can do anything. you can write your code in any language, using any or multiple of a million frameworks and libraries people have created for you, you can read and write to files, you can integrate with databases, you can run other unrelated programs from inside your program, anything. we're staring into the abyss, here.
 
-however: since you have to write frontend (user-facing) stuff in javascript, many people have recently started to write their backend server stuff in javascript as well, to avoid having to learn more than one language. they can do this because a program called node.js will run javascript code for you, outside of its original habitat (the browser.) node could theoretically run any kind of program, but it's mostly used for web servers. there's a very popular library for it called "express" that provides convenience functions that make common web server tasks very easy to accomplish. this introduction is finally over; we can now try creating our own node.js server using express at glitch.com.
+however: since you have to write frontend (user-facing) stuff in javascript, many people have recently started to write their backend server stuff in javascript as well, to avoid having to learn more than one language. they can do this because a program called node.js will run javascript code for you, outside of its original habitat (the browser.) node could theoretically run any kind of program, but it's mostly used for web servers. there's a very popular library for it called "express" that provides convenience functions that make common web server tasks very easy to accomplish. and this introduction is finally over; we can now try creating our own node.js server using express at glitch.com.
 
 ## Express Basics: Requests and Responses
 
-glitch.com is a website that will let you run a server program on one of their server computers for free, subject to some restrictions. basically, unless you pay them money, it can only run for a certain number of hours per month, and also there will be loading screens for it sometimes. so consider this a free trial that we're taking advantage of.
+glitch.com is a website that will let you run a server program on one of their server computers for free, subject to some restrictions. basically, unless you pay them money, it can only run for a certain number of hours per month, and also there will be loading screens for it sometimes. so consider this a free trial that we're taking advantage of. i have an example server program available at hacksu.com/express ; go there and then click "remix" to get your own version that you can edit.
 
-the interface that glitch gives you is very vscode-esque. we have the files for our project listed on the left, the current file that's open in the middle, and a preview of the result on the right. that url above the results is a real url; your glitch server is accessible on the public internet. however, currently, as advertised, this program does nothing. let's go to index.js and change that.
+the interface that glitch gives you is very vscode-esque. we have the files for our project listed on the left, the current file that's open in the middle, and a preview of the result on the right if you click the preview button on the bottom. that url above that preview is a real url; your glitch server is accessible on the public internet. however, currently, as advertised, this program does nothing. let's go to index.js and change that.
 
 ```js
 import express from "express";
@@ -55,7 +55,7 @@ app.use("/hello", sayHi);
 
 and now that response function will only be called when we visit /hello. which seems sensible.
 
-## Express Features: Serving Files & Route Parameters
+## Express Features: Serving Files & Templates
 
 the most common thing web servers have to do is serve files, and i have provided some files that it can potentially serve in the "public" folder here in our project. let's tell express that we want it to respond with those files when a browser visits it:
 
@@ -91,6 +91,8 @@ app.use("/guestbook", renderGuestbook);
 ```
 
 and now, if we go to /guestbook, we'll see our guestbook page. at the moment, it's not too new and exciting.
+
+# Sending and Receiving HTML Form Data
 
 any good guestbook will offer an option for users to add an entry to it. we're going to do that by putting an html form in the guestbook file. first, a form tag:
 
@@ -157,6 +159,8 @@ app.post("/addEntry", receiveEntry);
 ```
 
 so, now you should be able to see in the logs that we're storing a new entry in our `guestbookEntries` array every time we submit one through the form.
+
+# Using Variables in Templates
 
 now, obviously, we want to actually display the guestbook entries to the user in a normal way. one way we can do that is by sending them to our handlebars template. the simplest way to do that is to add a line like the following underneath the form in the template:
 
