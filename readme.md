@@ -196,7 +196,61 @@ handlebars syntax looks kind of ridiculous, but bear with me. whatever html you 
 
 so yeah. there is our guestbook. since we're using variables stored on the server, this will be accessible and will look the same to anyone who goes to your url. anyone can go to this url and add to my guestbook.
 
-## not sure where this will end up but it's important
+## Persistent Data Storage
+
+There's one more thing that we should do to make this useful. since our `guestbookEntries` variable is, well, a variable, it'll get reset to its original value - an empty array - every time the program restarts. the program needs to restart if you like, edit any of its code to make changes, so that could be a problem. to solve this, we just need to save our array to a file when it changes and read it from that file again when the program starts. i have a provided a file in this project called "guestbook.json" that currently contains the javascript syntax for an empty array.
+
+json stands for JavaScript Object Notation and you can use it to store values for most of the data types that you can use for variables in javascript. it's actually used for a lot of things in a lot of different types of programs, including those written in other languages like python, because it's really useful whenever you want to turn data into text to send it or store it somewhere. it's easy to use to store and read our list of strings.
+
+first we're going to need to import the functions that will let us read and write json data. they are going to live in an object called `json`:
+
+```js
+import json from "jsonfile";
+```
+
+then, we need the data from our json file to be loaded every time our program starts up. we can do this with `json.readFileSync`:
+
+```js
+// replace the original declaration of this variable
+let guestbookEntries = json.readFileSync("guestbook.json");
+```
+
+then, when we update this array, we'll also save its new value to that file:
+
+```js
+function receiveEntry(request, response) {
+    entries.push(request.body.entryText);
+    console.log(guestbookEntries);
+    json.writeFileSync("guestbook.json", guestbookEntries);  // <-- new
+    response.redirect("back");
+}
+```
+
+and that's it. we only needed three lines.
+
+now, when we add an entry to our guestbook, it will be saved in our json file. this gives us persistent storage; even if our program restarts, or even if we move this whole thing from one computer to another, our guestbook will be preserved. if our guestbook gets very large, we'll want to use a database to store it instead of just using one file, but that is another topic for another day.
+
+so, yeah. that's our server application. it does a thing. i will now take questions.
+
+## How To Run This On Any Computer
+
+click on the tools menu on the bottom row of icons on the screen, then click "Import/Export".
+
+there are two ways to download your project. if you have git installed, you can copy your projects git url, open your terminal, and run "git clone [your url]" in the terminal. this will let you run the project while also using "git pull" to download future changes you make on glitch.com.
+
+the other way is to download the project from their site as a .tgz file. then, open that folder in PowerShell (windows), Terminal (Mac), or whatever (Linux). then, use the command `tar -xvzf [your downloaded file's name]` to unzip the file.
+
+either way, once you have the project downloaded, you can open a terminal and navigate to its root directory. (that's the one with files like server.js and guestbook.json in it.) then, run `npm install` to download the project's libraries, like express, and after that's done, use `npm start` to run it. you can now access your server in your browser at localhost:3000 (since 3000 is the port number we've had in server.js from the beginning.)
+
+(if your computer is connected directly to the internet, you can also access the server through your computer's ip address on the public internet. however, this scenario is unlikely; there is probably at least one router between you and the internet. if you have control over that router, you can set up port forwarding, which just means that the router will send traffic that comes in for your ip address and port 3000 to your server, just like glitch did. also, within the network set up by your router, you probably have a local ip address, so other devices on that network should be able to access your server through that, by going to your.local.ip.address:3000 in their browser. the problem is, most ip addresses change occasionally. the best way to host a server is unfortunately to use the services of a cloud computing company like vultr, digital ocean, or oracle, who will give you an ip address that never changes. then, you can buy a domain name like yourname.com and forward visitors to that domain to your server's ip address.)
+
+to learn more about express, you can read their guide: https://expressjs.com/en/guide/routing.html
+
+or the tutorial on MDN: https://developer.mozilla.org/en-US/docs/Learn/Server-side/Express_Nodejs/Introduction
+
+## route parameters are also useful
+
+they don't really fit into the rest of the lesson, though.
 
 ```js
 function sayHiToName(request, response) {
@@ -207,4 +261,4 @@ function sayHiToName(request, response) {
 app.use("/hello/:exampleName", sayHiToName);
 ```
 
-so, route parameters are pretty simple. take a path, and somewhere in it, put a variable name with a : in front of it. then, navigate to that same path but with some actual value in the place of the variable name. when the response function gets run, the request will store that value under your variable name inside the object `request.params`, so you can access it and do stuff with it.
+take a path, and somewhere in it, put a variable name with a : in front of it. then, navigate to that same path in your browser but with some actual value in the place of the variable name. when the response function gets run, the request will store that value under your variable name inside the object `request.params`, so you can access it and do stuff with it.
