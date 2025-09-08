@@ -4,7 +4,11 @@
 
 (this is all in the powerpoint)
 
-at some point, web pages were just simple text documents, but now they're basically mini-programs that get downloaded, installed, and run on your computer as soon as you visit them. however, unlike normal programs, they don't have a natural way to save data, since they're trapped inside your browser. so, sure, one thing you could is write code that asks the browser to store some data for you for next time, but a) the browser might not feel like it, especially if the user has privacy settings turned on and clears their history and stuff, and b) you, the creator of the website, never get to chance to see the data and analyze it and sell it to the north korean state. and c), the data won't be there if the user visits the website with a different browser, like the one on their phone. this is why the programs that create web pages kind of need to be split in two: we need to run half of the program in the user's browser, to respond to what they're doing, and half of it on some computer that stores data and lets you retrieve it from anywhere. that computer is called a web server.
+at some point, web pages were just simple text documents, but now they're basically mini-programs that get downloaded, installed, and run on your computer as soon as you visit them. however, unlike normal programs, they don't have a natural way to save data, since they're trapped inside your browser. so, sure, one thing you could is write code that asks the browser to store some data for you for next time, but
+
+a) the browser might not feel like it, especially if the user has privacy settings turned on and clears their history and stuff, and 
+b) you, the creator of the website, never get to chance to see the data and analyze it and sell it to the north korean state. and 
+c), the data won't be there if the user visits the website with a different browser, like the one on their phone. this is why the programs that create web pages kind of need to be split in two: we need to run half of the program in the user's browser, to respond to what they're doing, and half of it on some computer that stores data and lets you retrieve it from anywhere. that computer is called a web server.
 
 a more formal definition of a server is that it's a computer that provides resources to a network. every time you view any kind of website, a web server is sending you the html, javascript, images, and et cetera that constitute the page you're looking at, in addition to storing all the data that it has on you. any network device can play the role of a server: a phone can, a desktop computer can, a raspberry pi can; you usually want a server to be a big powerful computer with a good internet connection sitting in a cool basement somewhere, but sometimes you don't have that, and so you're forced to jailbreak and reverse engineer your smart toaster.
 
@@ -16,9 +20,28 @@ however: since you have to write frontend (user-facing) stuff in javascript, man
 
 ## Express Basics: Requests and Responses
 
-glitch.com is a website that will let you run a *server program* on one of their *server computers* for free, subject to some restrictions. basically, unless you pay them money, it can only run for a certain number of hours per month, and also there will be loading screens for it sometimes. so consider this a free trial that we're taking advantage of. i have an example server program available at hacksu.com/express ; go there and then click "remix" to get your own version that you can edit.
+```
+glitch.com no longer exists :( so I added a part on how to get node.js to work on vscode.
+```
 
-the interface that glitch gives you is very vscode-esque. we have the files for our project listed on the left, the current file that's open in the middle, and a preview of the result on the right if you click the preview button on the bottom. that randomly generated url above that preview is a real url; your glitch server is accessible on the public internet. however, currently, as advertised, this program does nothing. let's go to index.js and change that.
+In order to run out website we are going to use VS code as our IDE and PowerShell as our terminal. Yours should work too but your commands may be a bit different.
+
+First run `npm -v`
+If it says `npm : The term 'npm' is not recognized as the name of a cmdlet, function, script file, or operable program.`
+Then you know you don't have it installed.
+If you don't have it installed go to https://nodejs.org/en. Click on Get Node.js and I recommend downloading the installer and running that. `Windows Installer (.msi)`
+
+Then if you run `npm -v` again it should display a number like `11.5.1`. If it doesn't close and re-open your VS code and run it again. If that still doesn't work then restart your computer. if THAT still doesn't work then raise your hand and one of our organizers can help you
+
+Next up is installing Express.js which should be much easier.
+Now that you have `npm` you just type `npm install express` and it should just install.
+Then type `npm list express` and if it says parenthesis and empty, you know it isn't installed. `└── (empty)`
+
+You know it isn't installed. But if it shows a line and express at then a number you know it has been installed. `└── (express@5.1.0)`
+
+It should also install a `node_modules` folder a `package-lock.json` file and a `package.json` file.
+
+currently, as advertised, this program does nothing. let's go to index.js and change that.
 
 ```js
 import express from "express";
