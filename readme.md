@@ -30,11 +30,12 @@ If you don't have git you can also just go to our repository here : [link](https
 Make sure you are in this folder before running any of the next commands.
 
 ##### Installing NPM
-First run `npm -v`
-If it says 
+First run 
 ```
-npm : The term 'npm' is not recognized as the name of a cmdlet, function, script file, or operable program.
+npm -v
 ```
+
+If it says `npm : The term 'npm' is not recognized as the name of a cmdlet, function, script file, or operable program.`
 Then you know you don't have NPM installed.
 To install NPM go to https://nodejs.org/en. Click on **Get Node.js** and then download the installer by pressing. `Windows Installer (.msi)`
 
@@ -44,7 +45,11 @@ If that still doesn't work then restart your computer.
 If THAT still doesn't work then raise your hand and one of our organizers can help you
 
 ##### Installing Express.js 
-Next up is installing Express.js. Now that you have `npm` you just type `npm install express` and it should just install. Then type `npm list express`.
+Next up is installing Express.js. Now that you have `npm` you just type 
+```
+npm install express
+```
+and it should just install. Then type `npm list express`.
 If it returns the word `empty` then it isn't installed. `└── (empty)`
 If it returns the word `express` then it is installed `└── (express@5.1.0)`
 
@@ -52,7 +57,10 @@ It should also install a `node_modules` folder, a `package-lock.json` file, and 
 
 ##### Installing Handlebars and jsonfile
 Also, you can use `npm i` to install anything as is shorthand for `npm install` 
-To install handlebars type `npm i express-handlebars`
+To install handlebars type 
+```
+npm i express-handlebars
+```
 
 ##### File Structure:
 Finally make sure your file structure looks like this: (show file structure)
