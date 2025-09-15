@@ -262,13 +262,17 @@ and finally, like we did above with "/hello", we need to specify that this funct
 app.post("/addEntry", receiveEntry);
 ```
 
-so, now you should be able to see in the logs that we're storing a new entry in our `guestbookEntries` array every time we submit one through the form.
+so, now you should be able to use the logs that we're storing a new entry in our `guestbookEntries` array every time we submit one through the form.
 
 ## Using Variables in Templates
 
+Now we can test it by running `npm start` and opening `http://localhost:3000/guestbook` [link](http://localhost:3000/guestbook)
+
+The obvious problem is... we aren't actually displaying any of the data in `guestbookEntries`.
+
 now, obviously, we want to actually display the guestbook entries to the user in a normal way. one way we can do this is by putting them in the second section of our `guestbook.handlebars` file. This will allow us to check if any entries have been made so far.
 
-`- - - Bottom of guestbook.handlebars file`
+`- - - In the botton 'section' of the guestbook.handlebars file`
 ```hbs
 <section>
   <h3>Entries</h3>
@@ -288,22 +292,22 @@ now, obviously, we want to actually display the guestbook entries to the user in
 
 using double curly braces tells handlebars that we want to check for a value from our code; so we just need to supply a thing and give it the name `entries`. to do this, we just need to change the rendering code in `renderGuestbook`. (you might need to move the declaration of the variable `entries` so that it comes before the definition of `renderGuestbook`.)
 
-`- - - in server.js file, inside function response.render("guestbook")`
+`- - - in server.js file, inside function renderGuestbook, overwrite response.render("guestbook")`
 ```js
 response.render("guestbook", {entries: guestbookEntries});
 ```
 
-so, that should work. we now have an updating guestbook on our page; every time the form is submitted, the value for `nameEntry` gets stored in our array variable, and when the page is then reloaded by the browser, our "/guestbook" function is run and the template is rendered and the guestbook entries are in it.
+so, that should work and we can test it out right now. we now have an updating guestbook on our page; every time the form is submitted, the value for `nameEntry` gets stored in our array variable, and when the page is then reloaded by the browser, our "/guestbook" function is run and the template is rendered and the guestbook entries are in it.
 
 however, it doesn't exactly work because we can only print off the first 3 instances. It would be nice if we could print everything in the entries helper; to accomplish this, we can use the handlebars "each" helper:
 
 ```hbs
 {{#if entries}}
 	{{#each entries}}
-	  {{this.name}}
-	  {{this.text}}
-  {{/each}}
+		<p>{{this.name}} {{this.text}}</p>
+	{{/each}}
 {{else}}
+
 ```
 
 handlebars syntax looks kind of ridiculous, but bear with me. whatever html you put inside this "each" helper will be rendered once for each item in the array `entries`. inside the html, the element will be accessible under the name `this`. if we put a paragraph element with `this` in double curly braces as the content of that paragraph element, we'll get a paragraph for each item that contains each item:
@@ -338,6 +342,7 @@ json stands for JavaScript Object Notation and you can use it to store values fo
 
 first we're going to need to import the functions that will let us read and write json data. they are going to live in an object called `fs`:
 
+`- - - under const app = express();`
 ```js
 const fs = require("fs");
 ```
