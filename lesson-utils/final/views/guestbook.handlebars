@@ -28,7 +28,10 @@
   {{#if entries}}
     <ul class="guestbook-entries">
       {{#each entries}}
-        <li><span style="color:red">{{this.name}}</span> <span style="color:blue">{{this.text}}</span></li>
+        <li>
+          <span style="color:red">{{this.name}}</span>
+          <span style="color:blue">{{this.text}}</span>
+        </li>
         
       {{/each}}
     </ul>
