@@ -175,7 +175,7 @@ any good guestbook will offer an option for users to add an entry to it. we're g
 </form>
 ```
 
-the job of a web server is to respond to web requests, and there are 7ish types of web request used today. all of the requests we've been responding to so far are "get" requests, which is the kind that a browser sends to a server when you click a link or do a search or type a url somewhere and press "enter." however, forms usually use "post" requests, which are intended to send data to the server. so that's why that "method" attribute is there. then, the "action" attribute, which is kind of misnamed, specifies the url that our form data post request will be sent to. now we need to add a way for the user to fill that form data in.
+the job of a web server is to respond to web requests, and there are 7ish types of web request used today (GET, POST, PUT, PATCH, DELETE, HEAD, OPTIONS, TRACE, CONNECT, QUERY, some of which don't matter and will almost never be seen). all of the requests we've been responding to so far are "get" requests, which is the kind that a browser sends to a server when you click a link or do a search or type a url somewhere and press "enter." however, forms usually use "post" requests, which are intended to send data to the server. so that's why that "method" attribute is there. then, the "action" attribute, which is kind of misnamed, specifies the url that our form data post request will be sent to. now we need to add a way for the user to fill that form data in.
 
 
 ```html
