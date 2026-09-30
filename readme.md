@@ -51,7 +51,7 @@ npm install express
 ```
 and it should just install. Then type `npm list express`.
 If it returns the word `empty` then it isn't installed. `└── (empty)`
-If it returns the word `express` then it is installed `└── (express@5.1.0)`
+If it returns the word `express` then it is installed `└── (express@5.2.1)`
 
 It should also install a `node_modules` folder, a `package-lock.json` file, and a `package.json` file.
 
@@ -129,7 +129,7 @@ const fileProvider = express.static("public");  // the folder name
 app.use(fileProvider);
 ```
 
-now, based on the url that we enter, the server will try to respond with a file in the "pubic" folder. `express.static()` is a convenience function that express provides, we could write our own code to open files, read them, and then send what we read, but this is much easier. if the path of the url that we go to is just "/", file servers will generally look for a file called index.html to serve; 
+now, based on the url that we enter, the server will try to respond with a file in the "public" folder. `express.static()` is a convenience function that express provides, we could write our own code to open files, read them, and then send what we read, but this is much easier. if the path of the url that we go to is just "/", file servers will generally look for a file called index.html to serve; 
 
 If we just run this now you will just see our index.html. we can also specifically get `/index.html` which puts us where we already are, or `/confetto.png` and the file provider will respond with those. as you can see, the contents of index.html match what you see what you go to the empty path or /index.html in the little browser on the right here.
 
