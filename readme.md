@@ -109,15 +109,15 @@ as the path in our url, the function will run and that path will be logged and t
 
 if you wanted, you could develop a whole website inside this function. this is all you need. you could just put if statements in here, like, if the path is equal to this, then respond with this html, or if it's equal to this, respond with this image file; you could split the string up and use segments of it in if statements; you could interpret the path as a math problem, because it could be something like `/2+2`, and you could then respond with the answer; you could do anything. there are a million different ways to write a web server because once you have the networking code that express uses to get us to this point, you have complete freedom.
 
-however, for some reason, most people write multiple functions when they're programming. the express library has built-in mechanisms you can use to specify and restrict what a given function should be used for. replace the `app.use()` line above with this:
+however, for some reason, most people write multiple functions when they're programming. the express library has built-in mechanisms you can use to specify and restrict what a given function should be used for. specifically, we can use `app.get()` instead of `app.use()`: it only runs our function for "get" requests (the kind your browser sends when you type a url and hit enter) to exactly the path we specify, rather than any request of any kind to that path or anything underneath it. replace the `app.use()` line above with this:
 
 ```js
-app.use("/hello", sayHi);
+app.get("/hello", sayHi);
 ```
 
 Then make sure you restart your server. Every time after editing our `server.js` file we have to restart our server. To do this type `Ctrl+C` into the terminal to stop the program and then type in `npm start` again and press enter. Then if you kept the website open make sure you reload that too.
 
-After editing `app.use()` response function will only be called when we visit /hello. which seems sensible.
+After editing, this response function will only be called when we visit /hello. which seems sensible.
 
 ## Express Features: Serving Files & Templates
 
@@ -143,7 +143,7 @@ the simplest feature of handlebars templates is that they separate actual html c
 
 to use our template, we need a few extra lines of code in our server.js file. the people who wrote express and the people who created handlebars decided that this is how you add a templating option to their response objects. i'm going to put these into the discord because they're boring and everyone copy-pastes them from somewhere anyway.
 
-Also, before doing this, delete the `function sayHi()` and the `app.use("/hello", sayHi);` stuff
+Also, before doing this, delete the `function sayHi()` and the `app.get("/hello", sayHi);` stuff
 
 `- - - place directly under const app = express();`
 ```js
@@ -159,7 +159,7 @@ and now, let's add a function that renders our guestbook template. turning a tem
 function renderGuestbook(request, response) {
     response.render("guestbook");
 }
-app.use("/guestbook", renderGuestbook);
+app.get("/guestbook", renderGuestbook);
 ```
 
 and now, if we go to `/guestbook`, we'll see the beginning of our guestbook page. so that's exciting.
@@ -233,7 +233,7 @@ let guestbookEntries = [];
 
 then, we'll write a function that adds to it (and logs the result so that we can see that it works). you add stuff to a javascript array by calling the "push" member function.
 
-`- - - below function app.use("/guestbook",...`
+`- - - below function app.get("/guestbook",...`
 ```js
 function receiveEntry(request, response) {
     guestbookEntries.push(request.body.entryText);
@@ -255,7 +255,7 @@ function receiveEntry(request, response) {
 }
 ```
 
-and finally, like we did above with "/hello", we need to specify that this function should be run when the server receives requests with a certain path. this time, we'll also specify that we want to only respond to post requests (by calling `.post()` instead of `.use()`):
+and finally, like we did above with "/hello", we need to specify that this function should be run when the server receives requests with a certain path. this time, we'll also specify that we want to only respond to post requests (by calling `.post()` instead of `.get()`):
 
 `- - - outside & below the recieveEntry function`
 ```js
@@ -412,7 +412,7 @@ function sayHiToName(request, response) {
     response.send("Hello, " + name);
 }
 
-app.use("/hello/:exampleName", sayHiToName);
+app.get("/hello/:exampleName", sayHiToName);
 ```
 
 take a path, and somewhere in it, put a variable name with a : in front of it. then, navigate to that same path in your browser but with some actual value in the place of the variable name. when the response function gets run, the request will store that value under your variable name inside the object `request.params`, so you can access it and do stuff with it.

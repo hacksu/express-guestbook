@@ -38,7 +38,7 @@ function renderGuestbook(req, response) {
     entries: guestbookEntries,
   });
 }
-app.use("/guestbook", renderGuestbook);
+app.get("/guestbook", renderGuestbook);
 
 function receiveEntry(request, response) {
   const text = request.body.entryText?.trim();
